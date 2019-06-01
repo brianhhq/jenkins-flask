@@ -21,7 +21,7 @@ pipeline {
 		}
 		stage('test') {
 			agent {
-				label 'docker'
+				label 'master'
 			}
 			steps {
 				sh 'pipenv run python test.py'
