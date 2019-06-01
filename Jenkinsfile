@@ -6,6 +6,9 @@ pipeline {
 	// 	}
 	// }
 	agent none
+	environment {
+        DOCKER_REGISTRY = '221689986330.dkr.ecr.ap-southeast-2.amazonaws.com'
+    }
 	stages {
 		stage('build and test') {
 			agent {
@@ -38,13 +41,16 @@ pipeline {
 		// 		}
 		// 	}
 		// }
-		stage('build docker image') {
+		stage('build and publish') {
 			agent any
 			steps {
-				sh 'docker build -t jenkins-flask .'
+				sh 'docker build -t ${DOCKER_REGISTRY}/$JOB_NAME .'
 				// script {
 				// 	docker.build("jenkins-flask")
 				// }
+				sh 'pip install awscli'
+				sh '$(aws ecr get-login --no-include-email --region ap-southeast-2)'
+				sh 'docker push ${DOCKER_REGISTRY}/$JOB_NAME'
 			}
 		}
 	}
