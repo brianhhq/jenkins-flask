@@ -48,7 +48,8 @@ pipeline {
 				// script {
 				// 	docker.build("jenkins-flask")
 				// }
-				sh 'pip install awscli'
+				sh 'whoami'
+				sh 'pip install --user awscli'
 				sh '$(aws ecr get-login --no-include-email --region ap-southeast-2)'
 				sh 'docker push ${DOCKER_REGISTRY}/$JOB_NAME'
 			}
