@@ -13,22 +13,26 @@ pipeline {
 					image 'python:3.7'
 					args '-u root:root'
 				}
+				label 'docker'
 			}		
 			steps {
 				sh 'pip install pipenv'
 				sh 'pipenv sync'
 			}
 		}
-		// stage('test') {
-		// 	steps {
-		// 		sh 'pipenv run python test.py'
-		// 	}
-		// 	post {
-		// 		always {
-		// 			junit 'test-reports/*.xml'
-		// 		}
-		// 	}
-		// }
+		stage('test') {
+			agent {
+				label 'docker'
+			}
+			steps {
+				sh 'pipenv run python test.py'
+			}
+			post {
+				always {
+					junit 'test-reports/*.xml'
+				}
+			}
+		}
 		stage('build docker image') {
 			agent any
 			steps {
