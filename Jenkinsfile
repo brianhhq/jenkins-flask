@@ -12,6 +12,7 @@ pipeline {
 				docker {
 					image 'python:3.7'
 					args '-u root:root'
+					label 'my-defined-label'
 				}
 			}		
 			steps {
@@ -21,7 +22,7 @@ pipeline {
 		}
 		stage('test') {
 			agent {
-				label 'master'
+				label 'my-defined-label'
 			}
 			steps {
 				sh 'pipenv run python test.py'
