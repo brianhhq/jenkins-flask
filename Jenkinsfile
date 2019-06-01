@@ -20,6 +20,9 @@ pipeline {
 			}
 		}
 		stage('test') {
+			agent {
+				label 'docker'
+			}
 			steps {
 				sh 'pipenv run python test.py'
 			}
