@@ -50,6 +50,7 @@ pipeline {
 				// // }
 				sh 'whoami'
 				sh 'env'
+				sh 'echo currentBuild.rawBuild.project.displayName'
 				// sh 'pip install --user awscli'
 				// sh '$(aws ecr get-login --no-include-email --region ap-southeast-2)'
 				// sh 'docker push ${DOCKER_REGISTRY}/$JOB_NAME'
