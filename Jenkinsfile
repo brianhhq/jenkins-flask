@@ -7,24 +7,16 @@ pipeline {
 	// }
 	agent none
 	stages {
-		stage('build') {
+		stage('build and test') {
 			agent {
 				docker {
 					image 'python:3.7'
 					args '-u root:root'
-					label 'my-defined-label'
 				}
 			}		
 			steps {
 				sh 'pip install pipenv'
 				sh 'pipenv sync'
-			}
-		}
-		stage('test') {
-			agent {
-				label 'my-defined-label'
-			}
-			steps {
 				sh 'pipenv run python test.py'
 			}
 			post {
@@ -33,6 +25,19 @@ pipeline {
 				}
 			}
 		}
+		// stage('test') {
+		// 	agent {
+		// 		label ''
+		// 	}
+		// 	steps {
+		// 		sh 'pipenv run python test.py'
+		// 	}
+		// 	post {
+		// 		always {
+		// 			junit 'test-reports/*.xml'
+		// 		}
+		// 	}
+		// }
 		stage('build docker image') {
 			agent any
 			steps {
