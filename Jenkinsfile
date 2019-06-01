@@ -5,6 +5,7 @@ pipeline {
 	// 		args '-u root:root'
 	// 	}
 	// }
+	agent any
 	stages {
 		// stage('build') {
 		// 	steps {
@@ -23,7 +24,7 @@ pipeline {
 		// 	}
 		// }
 		stage('build docker image') {
-			agent any
+
 			steps {
 				sh 'docker.build -t jenkins-flsk .'
 			}
