@@ -26,7 +26,7 @@ pipeline {
 		stage('build docker image') {
 
 			steps {
-				sh 'docker.build -t jenkins-flsk .'
+				sh 'docker build -t jenkins-flsk .'
 			}
 		}
 	}
